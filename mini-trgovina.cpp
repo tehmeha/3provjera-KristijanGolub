@@ -9,7 +9,7 @@ int main()
     int MAX = 50;
     string artikli[MAX];
     unsigned long long int barkod[MAX];
-    float cijena [MAX];
+    float cijena[MAX];
     ofstream datotekaUpisivanje;
     ifstream datotekaUcitavanje;
 
@@ -27,13 +27,19 @@ int main()
         cin >> izbor;
         if( izbor == 1 )
         {
-            cout << "Unesite bar kod artikla:";
-            cin >>barkod[brojArtikla];
+            cout << "Unesite bar kod artikla: ";
+            cin >> barkod[brojArtikla] ;
             cout << "Unesite naziv artikla: ";
             cin.ignore();
             getline(cin, artikli[brojArtikla]);
-            cout << "Unesite cijena artikla:";
+            cout << "Unesite cijene artikla: ";
             cin >> cijena[brojArtikla];
+
+            datotekaUpisivanje.open("artikli.txt", ios::app);
+            datotekaUpisivanje << barkod[brojArtikla] << endl;
+            datotekaUpisivanje << artikli[brojArtikla] << endl;
+            datotekaUpisivanje << cijena[brojArtikla] << endl;
+
             brojArtikla++;
         }
         else if( izbor == 2 )
@@ -41,51 +47,55 @@ int main()
             cout << "bar kod" << "\t" << "naziv artikla" << "\t" << "cijena" << endl;
             for( int i = 0; i < brojArtikla; i++ )
             {
-
-                cout << barkod[i] << "\t" << artikli[i] << "\t" << cijena [i] << endl;
+                cout << barkod[i] << "\t"<< artikli[i] << "\t"<< cijena[i] << endl;
             }
         }
         else if( izbor == 3 )
         {
-            unsigned long long barkod_pretraga;
-            cout << "Unesite barkod za koji zelite pronaci artikl:";
+            unsigned long long int barkod_pretraga;
+            cout << "Upisite barkod po kojem zelite naci artikl: ";
             cin >> barkod_pretraga;
             bool pronadjen = false;
-            for(int i = 0; i < brojArtikla; i++)
+            for (int i = 0; i < brojArtikla; i ++)
             {
-               if (barkod_pretraga==barkod[i])
-               {
-                   pronadjen=true;
-                   cout << barkod[i] << "\t" << artikli[i] << "\t" << cijena[i] << endl;
-                   break;
-               }
+                if(barkod_pretraga== barkod[i])
+                {
+                    pronadjen=true;
+                    cout << barkod[i] << "\t"<< artikli[i] << "\t"<< cijena[i] << endl;
+                    break;
+                }
+            }
+            if( pronadjen==false )
+            {
+                cout << "Barkod nije pronaden" << endl;
             }
         }
+
         else if( izbor == 4 )
         {
-            string artikli_pretraga;
-            cout << "Artikl po kojem zelite odrediti podatke:";
-            cin.ignore ();
-            getline (cin, artikli_pretraga);
+            string  artikli_pretraga;
+            cout << "Upisite artikl po kojem zelite saznati podatke;  ";
+            cin.ignore();
+            getline(cin, artikli_pretraga );
+
             bool pronadjen = false;
-            for (int i = 0; i < brojArtikla; i++)
+            for ( int i = 0; i < brojArtikla; i ++)
             {
-                if(barkod_pretraga == barkod[i])
+                if(artikli_pretraga == artikli[i] )
                 {
-                    cout << artikli[i] << "\t";
-                    cout << barkod[i] << "\t";
-                    cout << cijena[i] << "\t";
-                    pronadjen = true;
+                    pronadjen=true;
+                    cout << barkod[i] << "\t"<< artikli[i] << "\t"<< cijena[i] << endl;
                     break;
-                    }
-                    if (pronadjen == false)
-                    {
-                        cout << "Unjeli ste krivi barkod:";
-                    }
+                }
+            }
+            if(pronadjen==false)
+            {
+                cout << "Artikl nije pronaden " << endl;
             }
         }
         else if( izbor == 5 )
         {
+
         }
         else if( izbor == 6 )
         {
